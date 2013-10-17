@@ -1,4 +1,5 @@
 # editing via web
+# added another line
 
 cat > /etc/iptables/rules.v4 << EOF
 *filter
@@ -20,7 +21,8 @@ cat > /etc/iptables/rules.v4 << EOF
 -A INPUT -p icmp -m icmp --icmp-type 3 -j ACCEPT 
 -A INPUT -p icmp -m icmp --icmp-type 4 -j ACCEPT 
 -A INPUT -p icmp -m icmp --icmp-type 11 -j ACCEPT 
--A INPUT -p icmp -m icmp --icmp-type 12 -j ACCEPT 
+-A OUTPUT -p icmp -m icmp --icmp-type 12 -j ACCEPT 
+
 -A INPUT -p icmp -m icmp --icmp-type 8 -j ACCEPT 
 -A INPUT -p udp -m udp --dport 33434:33523 -j ACCEPT 
 -A OUTPUT -d 192.168.168.0/24 -o eth1 -j ACCEPT 
