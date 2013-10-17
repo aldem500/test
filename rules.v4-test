@@ -2,6 +2,7 @@
 # added another line
 
 cat > /etc/iptables/rules.v4 << EOF
+-----------------------------------
 *filter
 :INPUT DROP [0:0]
 :FORWARD ACCEPT [0:0]
