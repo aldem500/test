@@ -1,0 +1,27 @@
+cat > /etc/iptables/rules.v4 << EOF
+*filter
+:INPUT DROP [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [35798:44365960]
+-A INPUT -s 192.168.168.0/24 -i eth1 -j ACCEPT 
+-A INPUT -p udp -m udp --dport 9161 -j ACCEPT 
+-A INPUT -i lo -j ACCEPT 
+-A INPUT -p tcp -m tcp --dport 22 -j ACCEPT 
+-A INPUT -p tcp -m tcp -m multiport --dports 22,443 -j ACCEPT 
+-A INPUT -p icmp -m icmp --icmp-type 8 -j ACCEPT 
+-A INPUT -i eth1 -j ACCEPT 
+-A INPUT -p tcp -m tcp --tcp-flags ACK ACK -j ACCEPT 
+-A INPUT -m state --state ESTABLISHED -j ACCEPT 
+-A INPUT -m state --state RELATED -j ACCEPT 
+-A INPUT -p udp -m udp --sport 53 --dport 1024:65535 -j ACCEPT 
+-A INPUT -p icmp -m icmp --icmp-type 0 -j ACCEPT 
+-A INPUT -p icmp -m icmp --icmp-type 3 -j ACCEPT 
+-A INPUT -p icmp -m icmp --icmp-type 4 -j ACCEPT 
+-A INPUT -p icmp -m icmp --icmp-type 11 -j ACCEPT 
+-A INPUT -p icmp -m icmp --icmp-type 12 -j ACCEPT 
+-A INPUT -p icmp -m icmp --icmp-type 8 -j ACCEPT 
+-A INPUT -p udp -m udp --dport 33434:33523 -j ACCEPT 
+-A OUTPUT -d 192.168.168.0/24 -o eth1 -j ACCEPT 
+-A OUTPUT -o lo -j ACCEPT 
+COMMIT
+EOF
